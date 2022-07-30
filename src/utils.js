@@ -1,4 +1,4 @@
-const days = [
+export const days = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -8,7 +8,7 @@ const days = [
   "Saturday",
 ];
 
-const months = [
+export const months = [
   "January",
   "February",
   "March",
@@ -23,9 +23,9 @@ const months = [
   "December",
 ];
 
-const daysOfMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+export const daysOfMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-const getMonthDetails = (year, month) => {
+export const getMonthDetails = (year, month) => {
   const firstDay = new Date(year, month, 1).getDay();
   let daysInMonth;
 
@@ -38,7 +38,7 @@ const getMonthDetails = (year, month) => {
   return { firstDay, daysInMonth };
 };
 
-const getDateDetails = (item) => {
+export const getDateDetails = (item) => {
   const itemDate = new Date(item.date);
   const thisYear = itemDate.getFullYear();
   const thisMonth = itemDate.getMonth();
@@ -47,7 +47,7 @@ const getDateDetails = (item) => {
   return { thisYear, thisMonth, thisDate };
 };
 
-const getTimeDetails = (year, month, day, time) => {
+export const getTimeDetails = (year, month, day, time) => {
   return new Date(
     year,
     month,
@@ -57,4 +57,14 @@ const getTimeDetails = (year, month, day, time) => {
   );
 };
 
-export { days, months, getMonthDetails, getDateDetails, getTimeDetails };
+export const inputDateCorrection = (date) => {
+  const day = date.split("-");
+  day[1] = parseInt(day[1], 10) + 1;
+  if (day[1].toString().length === 1) {
+    day[1] = "0" + day[1];
+  }
+
+  const changedDate = day.join("-");
+
+  return { changedDate };
+};

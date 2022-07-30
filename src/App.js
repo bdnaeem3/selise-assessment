@@ -94,7 +94,9 @@ const App = () => {
   useEffect(() => {
     const monthFilter = appointments.filter((item) => {
       const { thisYear, thisMonth } = getDateDetails(item);
-      return year === thisYear && month === thisMonth - 1;
+      return (
+        parseInt(year, 10) === thisYear && parseInt(month, 10) === thisMonth - 1
+      );
     });
     setMonthAppointments(monthFilter);
   }, [appointments, year, month]);

@@ -11,6 +11,7 @@ export const Box = styled.div`
   height: 14vh;
   width: 13vw;
   border: 1px solid gray;
+  position: relative;
 `;
 
 export const DaysWrapper = styled.ul`

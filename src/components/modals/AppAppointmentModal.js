@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addAppointment } from "../../redux/slice/appointmentSlice";
 import { popupToggle } from "../../redux/slice/uiSlice";
+import { inputDateCorrection } from "../../utils";
 import ModalHOC from "../hoc/Modal";
 
 const AddAppointment = () => {
@@ -34,7 +35,13 @@ const AddAppointment = () => {
         return;
       }
     }
-    dispatch(addAppointment(appointment));
+    const { changedDate } = inputDateCorrection(appointment.date);
+    dispatch(
+      addAppointment({
+        ...appointment,
+        date: changedDate,
+      })
+    );
     dispatch(popupToggle(""));
   };
 
