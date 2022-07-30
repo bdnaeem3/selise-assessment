@@ -23,9 +23,17 @@ const months = [
   "December",
 ];
 
+const daysOfMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
 const getMonthDetails = (year, month) => {
   const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  let daysInMonth;
+
+  if (month === 1 && year % 4 === 0) {
+    daysInMonth = daysOfMonth[month] + 1;
+  } else {
+    daysInMonth = daysOfMonth[month];
+  }
 
   return { firstDay, daysInMonth };
 };
