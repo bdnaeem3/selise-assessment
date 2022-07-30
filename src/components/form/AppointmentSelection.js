@@ -3,6 +3,7 @@ import { months } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { popupToggle, setYear, setMonth } from "../../redux/slice/uiSlice";
 import { ADD_APPOINTMENT_POPUP } from "../../constants/uiConstants";
+import { Selection } from "./AppointmentSelection-style";
 
 // staic
 const availableYears = [2021, 2020, 2019];
@@ -30,7 +31,7 @@ const AppAppointmentSelection = () => {
 
     if (pathname.includes("year")) {
       const yearPosition = pathname.indexOf("year") + 1;
-      const urlYear = parseInt(pathname[yearPosition]);
+      const urlYear = parseInt(pathname[yearPosition], 10);
       if (availableYears.includes(urlYear)) {
         dispatch(setYear(urlYear));
       }
@@ -38,7 +39,7 @@ const AppAppointmentSelection = () => {
 
     if (pathname.includes("month")) {
       const yearPosition = pathname.indexOf("month") + 1;
-      const urlMonth = parseInt(pathname[yearPosition]) - 1;
+      const urlMonth = parseInt(pathname[yearPosition], 10) - 1;
       if (urlMonth < 12) {
         dispatch(setMonth(urlMonth));
       }
@@ -46,7 +47,7 @@ const AppAppointmentSelection = () => {
   }, [window.location.pathname]);
 
   return (
-    <div className="selection">
+    <Selection>
       <select value={year} onChange={changeYearHandler}>
         <option>Select Year</option>
         <option value="2022">2022</option>
@@ -65,7 +66,7 @@ const AppAppointmentSelection = () => {
         })}
       </select>
       <button onClick={showAddAppointmentPopup}>Add Appointment</button>
-    </div>
+    </Selection>
   );
 };
 

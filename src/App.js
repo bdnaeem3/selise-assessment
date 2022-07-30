@@ -11,15 +11,21 @@ import {
 import AppointmentModal from "./components/modals/AppointmentModal";
 import AppAppointmentModal from "./components/modals/AppAppointmentModal";
 import AppAppointmentSelection from "./components/form/AppointmentSelection";
+import {
+  PageWrapper,
+  Box,
+  DaysWrapper,
+  DaysList,
+  DateHolder,
+  ListHolder,
+  List,
+} from "./app-style";
 
 // redux
 import { popupToggle } from "./redux/slice/uiSlice";
 
 // utils
 import { days, getMonthDetails, getDateDetails, getTimeDetails } from "./utils";
-
-// css
-import "./app.css";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -39,7 +45,7 @@ const App = () => {
 
     if (firstDay !== 0) {
       for (let i = 0; i < firstDay; i++) {
-        view.push(<div key={`j-${i}`}></div>);
+        view.push(<Box key={`j-${i}`}></Box>);
       }
     }
 
@@ -52,9 +58,9 @@ const App = () => {
       });
 
       view.push(
-        <div key={i}>
-          <p>{today.getDate()}</p>
-          <ul className="appointment-list">
+        <Box key={i}>
+          <DateHolder>{today.getDate()}</DateHolder>
+          <ListHolder>
             {todaysAppointments
               .sort((a, b) => {
                 const aTime = getTimeDetails(year, month, i, a.time);
@@ -63,22 +69,22 @@ const App = () => {
               })
               .map((item, key) => {
                 return (
-                  <li
+                  <List
                     key={key}
                     onClick={() => toggleAppointmentDetailsModal(item)}
                   >
                     {item.name} at {item.time}
-                  </li>
+                  </List>
                 );
               })}
-          </ul>
-        </div>
+          </ListHolder>
+        </Box>
       );
     }
 
     if (view.length % 7 !== 0) {
       for (let i = 0; i < view.length % 7; i++) {
-        view.push(<div key={`t-${i}`}></div>);
+        view.push(<Box key={`t-${i}`}></Box>);
       }
     }
 
@@ -88,7 +94,7 @@ const App = () => {
   useEffect(() => {
     const monthFilter = appointments.filter((item) => {
       const { thisYear, thisMonth } = getDateDetails(item);
-      return year == thisYear && month == thisMonth - 1;
+      return year === thisYear && month === thisMonth - 1;
     });
     setMonthAppointments(monthFilter);
   }, [appointments, year, month]);
@@ -97,15 +103,15 @@ const App = () => {
     <Fragment>
       <AppAppointmentSelection />
 
-      <div className="wrapper">
-        <ul>
+      <PageWrapper>
+        <DaysWrapper>
           {days.map((day, i) => {
-            return <li key={i}>{day}</li>;
+            return <DaysList key={i}>{day}</DaysList>;
           })}
-        </ul>
+        </DaysWrapper>
 
         {generateCalendar()}
-      </div>
+      </PageWrapper>
 
       {showPopupName === ADD_APPOINTMENT_POPUP && <AppAppointmentModal />}
       {showPopupName === APPOINTMENT_DETAILS_POPUP && (

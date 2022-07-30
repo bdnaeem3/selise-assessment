@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { popupToggle } from "../../redux/slice/uiSlice";
+import { Wrapper, Overlay, Content, Title } from "./Modal-style";
 
-const ModalHOC = (props) => {
+const ModalHOC = ({ title, children }) => {
   const dispatch = useDispatch();
 
   const hidePopupHanlder = () => {
@@ -10,10 +11,13 @@ const ModalHOC = (props) => {
   };
 
   return (
-    <div className="modal-wrapper">
-      <div className="modal-overlay" onClick={hidePopupHanlder}></div>
-      <div className="modal-body">{props.children}</div>
-    </div>
+    <Wrapper>
+      <Overlay onClick={hidePopupHanlder}></Overlay>
+      <Content>
+        {title && <Title>{title}</Title>}
+        {children}
+      </Content>
+    </Wrapper>
   );
 };
 
