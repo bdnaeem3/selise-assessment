@@ -1,0 +1,43 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper div {
+  height: 14vh;
+  width: 13vw;
+  border: 1px solid gray;
+}
+
+.wrapper ul {
+  display: flex;
+  padding: 0;
+  list-style: none;
+}
+
+.wrapper li {
+  width: 13vw;
+  text-align: center;
+}
+
+.wrapper p {
+  margin: 0;
+  background: lightblue;
+  text-align: center;
+  padding: 3px;
+}
+
+.selection {
+  display: flex;
+  margin-left: 4.5%;
+}
