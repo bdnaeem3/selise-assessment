@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addAppointment } from "../../redux/slice/appointmentSlice";
 import { popupToggle } from "../../redux/slice/uiSlice";
 import ModalHOC from "../hoc/Modal";
 
 const AddAppointment = () => {
   const dispatch = useDispatch();
-  const appointments = useSelector((state) => state.appointments);
   const [error, setError] = useState("");
   const [appointment, setAppointment] = useState({
     name: "",
