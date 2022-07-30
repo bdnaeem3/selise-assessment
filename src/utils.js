@@ -16,11 +16,19 @@ const months = [
   "May",
   "June",
   "July",
+  "August",
   "September",
   "October",
   "November",
   "December",
 ];
+
+const getMonthDetails = (year, month) => {
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  return { firstDay, daysInMonth };
+};
 
 const getDateDetails = (item) => {
   const itemDate = new Date(item.date);
@@ -41,4 +49,4 @@ const getTimeDetails = (year, month, day, time) => {
   );
 };
 
-export { days, months, getDateDetails, getTimeDetails };
+export { days, months, getMonthDetails, getDateDetails, getTimeDetails };
