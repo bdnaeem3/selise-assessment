@@ -1,25 +1,17 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { days, months } from "./utils";
 import "./app.css";
 
 const App = () => {
-  const date = new Date();
-  // const firstDay = date.getDay();
-  const [year, setYear] = useState(date.getFullYear());
-  const [month, setMonth] = useState(date.getMonth());
-
-  // console.log("date", date);
-  // console.log("firstDay", firstDay);
-  // console.log("year", year);
-  // console.log("month", month);
+  const year = 2022;
+  const month = 6;
+  // const [year, setYear] = useState(date.getFullYear());
+  // const [month, setMonth] = useState(date.getMonth());
 
   const generateCalendar = () => {
     const view = [];
     var firstDay = new Date(year, month, 1).getDay();
     var lastDay = new Date(year, month + 1, 0).getDate();
-
-    // console.log("firstDay", firstDay);
-    // console.log("lastDay", lastDay);
 
     if (firstDay !== 0) {
       for (let i = 0; i < firstDay; i++) {
@@ -41,10 +33,7 @@ const App = () => {
       for (let i = 0; i < view.length % 7; i++) {
         view.push(<div key={`t-${i}`}></div>);
       }
-      console.log("no");
     }
-
-    console.log("view,", view.length);
 
     return view;
   };
