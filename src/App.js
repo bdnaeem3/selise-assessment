@@ -1,12 +1,19 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React, { Fragment, useState, useEffect } from "react";
 
 // constants
-import { ADD_APPOINTMENT_POPUP } from "./constants/uiConstants";
+import {
+  ADD_APPOINTMENT_POPUP,
+  APPOINTMENT_DETAILS_POPUP,
+} from "./constants/uiConstants";
 
 // components
+import AppointmentModal from "./components/modals/AppointmentModal";
 import AppAppointmentModal from "./components/modals/AppAppointmentModal";
 import AppAppointmentSelection from "./components/form/AppointmentSelection";
+
+// redux
+import { popupToggle } from "./redux/slice/uiSlice";
 
 // utils
 import { days, getMonthDetails, getDateDetails, getTimeDetails } from "./utils";
@@ -15,10 +22,17 @@ import { days, getMonthDetails, getDateDetails, getTimeDetails } from "./utils";
 import "./app.css";
 
 const App = () => {
+  const dispatch = useDispatch();
   const [monthAppointments, setMonthAppointments] = useState([]);
   const { appointments } = useSelector((state) => state.appointments);
   const { showPopupName, year, month } = useSelector((state) => state.ui);
   const { firstDay, daysInMonth } = getMonthDetails(year, month);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+
+  const toggleAppointmentDetailsModal = (item) => {
+    dispatch(popupToggle(APPOINTMENT_DETAILS_POPUP));
+    setSelectedAppointment(item);
+  };
 
   const generateCalendar = () => {
     const view = [];
@@ -49,7 +63,10 @@ const App = () => {
               })
               .map((item, key) => {
                 return (
-                  <li key={key}>
+                  <li
+                    key={key}
+                    onClick={() => toggleAppointmentDetailsModal(item)}
+                  >
                     {item.name} at {item.time}
                   </li>
                 );
@@ -90,8 +107,9 @@ const App = () => {
         {generateCalendar()}
       </div>
 
-      {showPopupName === ADD_APPOINTMENT_POPUP && (
-        <AppAppointmentModal></AppAppointmentModal>
+      {showPopupName === ADD_APPOINTMENT_POPUP && <AppAppointmentModal />}
+      {showPopupName === APPOINTMENT_DETAILS_POPUP && (
+        <AppointmentModal appointment={selectedAppointment} />
       )}
     </Fragment>
   );
