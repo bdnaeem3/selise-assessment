@@ -5,11 +5,11 @@ const initialState = {
 };
 
 export const appointmentsSlice = createSlice({
-  name: "counter",
+  name: "appointment",
   initialState,
   reducers: {
-    addAppointment: (state, action) => {
-      state.appointments = [...state.appointments, action.appointment];
+    addAppointment: (state, { payload }) => {
+      state.appointments = [...state.appointments, payload];
     },
   },
 });

@@ -1,10 +1,16 @@
 import React, { Fragment } from "react";
 import { days, months } from "./utils";
+import { useDispatch, useSelector } from "react-redux";
+import AppAppointmentModal from "./components/modals/AppAppointmentModal";
+import { ADD_APPOINTMENT_POPUP } from "./constants/uiConstants";
+import { popupToggle } from "./redux/slice/uiSlice";
 import "./app.css";
 
 const App = () => {
   const year = 2022;
   const month = 6;
+  const dispatch = useDispatch();
+  const popup = useSelector((state) => state.ui);
   // const [year, setYear] = useState(date.getFullYear());
   // const [month, setMonth] = useState(date.getMonth());
 
@@ -21,7 +27,6 @@ const App = () => {
 
     for (let i = 0; i < lastDay; i++) {
       let thisDay = new Date(year, month, i + 1);
-      console.log("thisDay", thisDay);
       view.push(
         <div key={i}>
           <p>{thisDay.getDate()}</p>
@@ -36,6 +41,10 @@ const App = () => {
     }
 
     return view;
+  };
+
+  const showAddAppointmentPopup = () => {
+    dispatch(popupToggle(ADD_APPOINTMENT_POPUP));
   };
 
   return (
@@ -53,6 +62,7 @@ const App = () => {
             return <option key={i}>{month}</option>;
           })}
         </select>
+        <button onClick={showAddAppointmentPopup}>Add Appointment</button>
       </div>
       <div className="wrapper">
         <ul>
@@ -63,6 +73,9 @@ const App = () => {
 
         {generateCalendar()}
       </div>
+      {popup.showPopupName === ADD_APPOINTMENT_POPUP && (
+        <AppAppointmentModal></AppAppointmentModal>
+      )}
     </Fragment>
   );
 };

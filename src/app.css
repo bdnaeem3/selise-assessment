@@ -41,3 +41,50 @@ body {
   display: flex;
   margin-left: 4.5%;
 }
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-body {
+  width: 90%;
+  max-width: 600px;
+  padding: 30px;
+  background: white;
+  z-index: 1;
+  max-height: 60%;
+  overflow-y: auto;
+}
+
+input {
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+form button {
+  padding: 10px 40px;
+  background: lightseagreen;
+  color: white;
+  border: none;
+  display: table;
+  margin: 0 auto;
+}
