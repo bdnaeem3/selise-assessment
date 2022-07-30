@@ -19,13 +19,13 @@ body {
   border: 1px solid gray;
 }
 
-.wrapper ul {
+.wrapper > ul {
   display: flex;
   padding: 0;
   list-style: none;
 }
 
-.wrapper li {
+.wrapper > ul li {
   width: 13vw;
   text-align: center;
 }
@@ -87,4 +87,21 @@ form button {
   border: none;
   display: table;
   margin: 0 auto;
+}
+
+.appointment-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  height: calc(100% - 24px);
+  overflow: auto;
+}
+
+.appointment-list li {
+  line-height: 30px;
+  background-color: lightcyan;
+  margin-top: 3px;
+  text-align: center;
+  cursor: pointer;
 }

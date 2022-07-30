@@ -14,7 +14,7 @@ const initialState = {
       gender: "Male",
       age: "28",
       date: "2022-07-01",
-      time: "01:00",
+      time: "02:15",
     },
     {
       name: "Naeem Ahmed",
@@ -22,6 +22,20 @@ const initialState = {
       age: "28",
       date: "2022-07-01",
       time: "02:00",
+    },
+    {
+      name: "Naeem Ahmed",
+      gender: "Male",
+      age: "28",
+      date: "2022-07-01",
+      time: "02:05",
+    },
+    {
+      name: "Naeem Ahmed",
+      gender: "Male",
+      age: "28",
+      date: "2022-07-01",
+      time: "01:00",
     },
     {
       name: "Naeem Ahmed",

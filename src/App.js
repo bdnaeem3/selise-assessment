@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { days, months } from "./utils";
+import React, { Fragment, useState, useEffect } from "react";
+import { days, months, getDateDetails, getTimeDetails } from "./utils";
 import { useDispatch, useSelector } from "react-redux";
 import AppAppointmentModal from "./components/modals/AppAppointmentModal";
 import { ADD_APPOINTMENT_POPUP } from "./constants/uiConstants";
@@ -11,8 +11,8 @@ const App = () => {
   const month = 6;
   const dispatch = useDispatch();
   const popup = useSelector((state) => state.ui);
-  // const [year, setYear] = useState(date.getFullYear());
-  // const [month, setMonth] = useState(date.getMonth());
+  const { appointments } = useSelector((state) => state.appointments);
+  const [monthAppointments, setMonthAppointments] = useState([]);
 
   const generateCalendar = () => {
     const view = [];
@@ -26,10 +26,30 @@ const App = () => {
     }
 
     for (let i = 0; i < lastDay; i++) {
-      let thisDay = new Date(year, month, i + 1);
+      let today = new Date(year, month, i + 1);
+      const todaysAppointments = monthAppointments.filter((item) => {
+        const { thisDate } = getDateDetails(item);
+        return thisDate === i + 1;
+      });
+
       view.push(
         <div key={i}>
-          <p>{thisDay.getDate()}</p>
+          <p>{today.getDate()}</p>
+          <ul className="appointment-list">
+            {todaysAppointments
+              .sort((a, b) => {
+                const aTime = getTimeDetails(year, month, i, a.time);
+                const bTime = getTimeDetails(year, month, i, b.time);
+                return aTime - bTime;
+              })
+              .map((item, key) => {
+                return (
+                  <li key={key}>
+                    {item.name} at {item.time}
+                  </li>
+                );
+              })}
+          </ul>
         </div>
       );
     }
@@ -46,6 +66,18 @@ const App = () => {
   const showAddAppointmentPopup = () => {
     dispatch(popupToggle(ADD_APPOINTMENT_POPUP));
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line
+    const monthFilter = appointments.filter((item) => {
+      const { thisYear, thisMonth } = getDateDetails(item);
+
+      if ((year === thisYear, month === thisMonth)) {
+        return item;
+      }
+    });
+    setMonthAppointments(monthFilter);
+  }, [appointments]);
 
   return (
     <Fragment>
